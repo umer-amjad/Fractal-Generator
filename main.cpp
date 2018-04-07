@@ -7,33 +7,12 @@
 
 #include <iostream>
 #include <vector>
-#include <cmath>
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
 
-typedef struct Point{
-    double x;
-    double y;
-} Point;
-
-const double degreesToRadians = M_PI / 180;
-
-void rotate(Point& in, int deg){
-    short old_x = in.x;
-    in.x = in.x*cos(deg*degreesToRadians) - in.y*sin(deg*degreesToRadians);
-    in.y = old_x*sin(deg*degreesToRadians) + in.y*cos(deg*degreesToRadians);
-}
-void scale(Point& in, double scale){
-    in.x *= scale;
-    in.y *= scale;
-}
-
-void translate(Point& in, double x_translate, double y_translate){
-    in.x += x_translate;
-    in.y += y_translate;
-}
+#include "Point.hpp"
 
 void init_x() {
     Display *dis;
@@ -118,9 +97,9 @@ void init_x() {
         XDrawLines(dis, win, gc, points.data(), (int)coordinates.size(), CoordModeOrigin);
         points.clear();
         for (auto& coordinate : coordinates){
-            rotate(coordinate, 10);
-            scale(coordinate, 0.9);
-            translate(coordinate, 10, 10);
+            coordinate.rotate(10);
+            coordinate.scale(0.9);
+            coordinate.translate(10, 10);
         }
     }
     
