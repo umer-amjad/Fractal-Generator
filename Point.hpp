@@ -18,10 +18,12 @@ public:
     double y;
     
     Point(double x, double y);
-    void rotate(double deg);
-    void scale(double scale, Point ref = {0, 0});
     void translate(Point t);
+    void scale(double scale, Point ref = {0, 0});
+    void rotate(double deg);
     
+    bool operator==(const Point& other) const;
+    bool operator!=(const Point& other) const;
 };
 
 #endif /* Point_hpp */

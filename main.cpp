@@ -87,20 +87,21 @@ void display() {
     std::vector<Point> coordinates = {{256, 256}, {-256, 256}, {-256, -256}, {256, -256}};
     coordinates.push_back(coordinates[0]);
     //you need to go out of bounds:
-    for (int i = 0; i < 25; ++i){
+    for (int i = 0; i < 35; ++i){
         std::vector<XPoint> points;
         for (auto& coordinate : coordinates){
             short x_point = round(coordinate.x*x_scale + x_zero);
             short y_point = round(-(y_scale*coordinate.y)+y_zero);
             points.push_back({x_point, y_point});
         }
-        XSetForeground(dis,gc,45568+i*10);//changes colour throughout
+        XSetForeground(dis,gc,45568+i*5);//changes colour throughout
         XDrawLines(dis, win, gc, points.data(), (int)coordinates.size(), CoordModeOrigin);
         points.clear();
+        Point firstPoint = coordinates[0];
         for (auto& coordinate : coordinates){
-            coordinate.rotate(10);
-            coordinate.scale(0.9);
-            coordinate.translate({10, 10});
+            coordinate.scale(0.9, firstPoint);
+            coordinate.rotate(1);
+            coordinate.translate({-1, -5});
         }
     }
     

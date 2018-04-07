@@ -17,10 +17,9 @@ class Polygon{
     
 public:
     Polygon(std::vector<Point> point);
-    void rotate(double deg);
-    void scaleOrigin(double scale);
-    void scalePoint(Point ref, double scale);
     void translate(Point t);
+    void scale(double scale, Point ref = {0, 0});
+    void rotate(double deg);
 };
 
 #endif /* Polygon_hpp */
