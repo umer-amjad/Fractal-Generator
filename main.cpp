@@ -12,9 +12,9 @@
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
 
-#include "Point.hpp"
+#include "Polygon.hpp"
 
-void init_x() {
+void display() {
     Display *dis;
     int screen;
     Window win;
@@ -25,10 +25,10 @@ void init_x() {
     /* use the information from the environment variable DISPLAY
      to create the X connection:
      */
-    dis=XOpenDisplay("");
-    screen=DefaultScreen(dis);
-    black=BlackPixel(dis,screen);    /* get color black */
-    white=WhitePixel(dis, screen);  /* get color white */
+    dis = XOpenDisplay("");
+    screen = DefaultScreen(dis);
+    black = BlackPixel(dis,screen);    /* get color black */
+    white = WhitePixel(dis, screen);  /* get color white */
     
     /* once the display is initialized, create the window.
      This window will be have be 200 pixels across and 300 down.
@@ -43,7 +43,7 @@ void init_x() {
     double x_scale = 1;
     double y_scale = 1;
     
-    win=XCreateSimpleWindow(dis,DefaultRootWindow(dis),0,0,
+    win = XCreateSimpleWindow(dis,DefaultRootWindow(dis),0,0,
                             width, height, 5, white, white);
     
     
@@ -60,7 +60,7 @@ void init_x() {
     
     
     /* create the Graphics Context */
-    gc=XCreateGC(dis, win, 0,0);
+    gc = XCreateGC(dis, win, 0,0);
     
     /* here is another routine to set the foreground and background
      colors _currently_ in use in the window.
@@ -87,19 +87,20 @@ void init_x() {
     std::vector<Point> coordinates = {{256, 256}, {-256, 256}, {-256, -256}, {256, -256}};
     coordinates.push_back(coordinates[0]);
     //you need to go out of bounds:
-    for (int i = 0; i < 40; ++i){
+    for (int i = 0; i < 25; ++i){
         std::vector<XPoint> points;
         for (auto& coordinate : coordinates){
             short x_point = round(coordinate.x*x_scale + x_zero);
             short y_point = round(-(y_scale*coordinate.y)+y_zero);
             points.push_back({x_point, y_point});
         }
+        XSetForeground(dis,gc,45568+i*10);//changes colour throughout
         XDrawLines(dis, win, gc, points.data(), (int)coordinates.size(), CoordModeOrigin);
         points.clear();
         for (auto& coordinate : coordinates){
             coordinate.rotate(10);
             coordinate.scale(0.9);
-            coordinate.translate(10, 10);
+            coordinate.translate({10, 10});
         }
     }
     
@@ -107,7 +108,7 @@ void init_x() {
 };
 
 int main(int argc, char* argv[]){
-    init_x();
+    display();
     int x;
     std::cin >> x;
 }

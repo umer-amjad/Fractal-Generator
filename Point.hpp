@@ -2,7 +2,6 @@
 //  Point.hpp
 //  Fractal-Generator
 //
-//  Created by H263353 on 4/7/18.
 //  Copyright © 2018 Umer. All rights reserved.
 //
 
@@ -20,8 +19,8 @@ public:
     
     Point(double x, double y);
     void rotate(double deg);
-    void scale(double scale);
-    void translate(double x_translate, double y_translate);
+    void scale(double scale, Point ref = {0, 0});
+    void translate(Point t);
     
 };
 

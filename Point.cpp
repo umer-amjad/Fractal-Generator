@@ -2,7 +2,6 @@
 //  Point.cpp
 //  Fractal-Generator
 //
-//  Created by H263353 on 4/7/18.
 //  Copyright © 2018 Umer. All rights reserved.
 //
 
@@ -16,13 +15,13 @@ void Point::rotate(double deg){
     y = old_x*sin(deg*degreesToRadians) + y*cos(deg*degreesToRadians);
 }
 
-void Point::scale(double scale){
+void Point::scale(double scale, Point ref){
     x *= scale;
     y *= scale;
 }
 
-void Point::translate(double x_translate, double y_translate){
-    x += x_translate;
-    y += y_translate;
+void Point::translate(Point t){
+    x += t.x;
+    y += t.y;
 }
 
