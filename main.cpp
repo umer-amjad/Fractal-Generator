@@ -83,26 +83,14 @@ void display() {
     XSetForeground(dis,gc,45568);//green
     
     //draw graph
-    
-    std::vector<Point> coordinates = {{256, 256}, {-256, 256}, {-256, -256}, {256, -256}};
-    coordinates.push_back(coordinates[0]);
-    //you need to go out of bounds:
-    for (int i = 0; i < 35; ++i){
-        std::vector<XPoint> points;
-        for (auto& coordinate : coordinates){
-            short x_point = round(coordinate.x*x_scale + x_zero);
-            short y_point = round(-(y_scale*coordinate.y)+y_zero);
-            points.push_back({x_point, y_point});
-        }
-        XSetForeground(dis,gc,45568+i*5);//changes colour throughout
-        XDrawLines(dis, win, gc, points.data(), (int)coordinates.size(), CoordModeOrigin);
-        points.clear();
-        Point firstPoint = coordinates[0];
-        for (auto& coordinate : coordinates){
-            coordinate.scale(0.9, firstPoint);
-            coordinate.rotate(1);
-            coordinate.translate({-1, -5});
-        }
+    Polygon square({{256, 256}, {-256, 256}, {-256, -256}, {256, -256}});
+    for (int i = 0; i < 85; ++i){
+        //XSetForeground(dis,gc,45568+i*5);//changes colour throughout
+        XDrawLines(dis, win, gc, square.getPixels(x_scale, y_scale, x_zero, y_zero), (int)square.size() + 1, CoordModeOrigin);
+        Point firstPoint = square[0];
+        square.scale(0.95, firstPoint);
+        square.rotate(3);
+        square.translate({-1, -5});
     }
     
     XFlush(dis);
