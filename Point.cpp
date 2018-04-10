@@ -30,7 +30,7 @@ void Point::rotate(double deg){
     y = old_x*sin(deg*degreesToRadians) + y*cos(deg*degreesToRadians);
 }
 
-XPoint Point::getPixel(double x_scale, double y_scale, double x_zero, double y_zero) const{
+Pixel Point::getPixel(double x_scale, double y_scale, double x_zero, double y_zero) const{
     short pixelX = round(this->x * x_scale + x_zero);
     short pixelY = round(-(y_scale * this->y) + y_zero);
     return {pixelX, pixelY};

@@ -9,7 +9,7 @@
 #define Polygon_hpp
 
 #include <vector>
-#include <X11/Xlib.h>
+#include "Displayer.hpp"
 
 #include "Point.hpp"
 
@@ -24,7 +24,7 @@ public:
     void scale(double scale, Point ref = {0, 0});
     void rotate(double deg);
     
-    XPoint* getPixels(double x_scale, double y_scale, double x_zero, double y_zero) const;
+    std::vector<Pixel> getPixels(double x_scale, double y_scale, double x_zero, double y_zero) const;
     
     const Point& operator[](int index) const;
     

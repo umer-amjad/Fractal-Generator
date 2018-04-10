@@ -9,7 +9,7 @@
 #define Point_hpp
 
 #include <cmath>
-#include <X11/Xlib.h>
+#include "Displayer.hpp"
 
 
 const double degreesToRadians = M_PI / 180;
@@ -24,7 +24,7 @@ public:
     void scale(double scale, Point ref = {0, 0});
     void rotate(double deg);
     
-    XPoint getPixel(double x_scale, double y_scale, double x_zero, double y_zero) const;
+    Pixel getPixel(double x_scale, double y_scale, double x_zero, double y_zero) const;
     
     bool operator==(const Point& other) const;
     bool operator!=(const Point& other) const;
