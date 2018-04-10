@@ -9,10 +9,19 @@
 #define Point_hpp
 
 #include <cmath>
-#include "Displayer.hpp"
-
 
 const double degreesToRadians = M_PI / 180;
+
+struct GraphProperties {
+    double x_zero;
+    double y_zero;
+    double x_scale;
+    double y_scale;
+};
+
+struct Pixel {
+    short x, y;
+}; //conversion from Point to Pixel
 
 class Point{
     double x;
@@ -24,7 +33,7 @@ public:
     void scale(double scale, Point ref = {0, 0});
     void rotate(double deg);
     
-    Pixel getPixel(double x_scale, double y_scale, double x_zero, double y_zero) const;
+    Pixel getPixel(GraphProperties& gp) const;
     
     bool operator==(const Point& other) const;
     bool operator!=(const Point& other) const;

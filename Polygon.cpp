@@ -37,14 +37,21 @@ void Polygon::rotate(double deg){
                   });
 }
 
-std::vector<Pixel> Polygon::getPixels(double x_scale, double y_scale, double x_zero, double y_zero) const{
+std::vector<Pixel> Polygon::getPixels(GraphProperties& gp) const{
     std::vector<Pixel> pixelPoints;
     std::for_each(points.begin(), points.end(),
                   [&](const Point& p){
-                      pixelPoints.push_back(p.getPixel(x_scale, y_scale, x_zero, y_zero));
+                      pixelPoints.push_back(p.getPixel(gp));
                   });
     pixelPoints.push_back(pixelPoints[0]); //close the polygon
     return pixelPoints;
+}
+
+std::vector<Point>::const_iterator Polygon::begin() const{
+    return points.begin();
+}
+std::vector<Point>::const_iterator Polygon::end() const{
+    return points.end();
 }
 
 const Point& Polygon::operator[](int index) const {

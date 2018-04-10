@@ -30,9 +30,9 @@ void Point::rotate(double deg){
     y = old_x*sin(deg*degreesToRadians) + y*cos(deg*degreesToRadians);
 }
 
-Pixel Point::getPixel(double x_scale, double y_scale, double x_zero, double y_zero) const{
-    short pixelX = round(this->x * x_scale + x_zero);
-    short pixelY = round(-(y_scale * this->y) + y_zero);
+Pixel Point::getPixel(GraphProperties& gp) const{
+    short pixelX = round(this->x * gp.x_scale + gp.x_zero);
+    short pixelY = round(-(gp.y_scale * this->y) + gp.y_zero);
     return {pixelX, pixelY};
 }
 

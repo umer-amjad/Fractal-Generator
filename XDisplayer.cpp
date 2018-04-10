@@ -8,6 +8,7 @@
 #include <algorithm>
 
 #include "XDisplayer.hpp"
+#include "Point.hpp"
 
 XDisplayer::XDisplayer(){
     dis = XOpenDisplay("");

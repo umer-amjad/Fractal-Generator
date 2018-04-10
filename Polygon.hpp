@@ -9,11 +9,9 @@
 #define Polygon_hpp
 
 #include <vector>
-#include "Displayer.hpp"
-
 #include "Point.hpp"
 
-class Polygon{
+class Polygon {
     std::vector<Point> points;
     
 public:
@@ -24,8 +22,10 @@ public:
     void scale(double scale, Point ref = {0, 0});
     void rotate(double deg);
     
-    std::vector<Pixel> getPixels(double x_scale, double y_scale, double x_zero, double y_zero) const;
+    std::vector<Pixel> getPixels(GraphProperties& gp) const;
     
+    std::vector<Point>::const_iterator begin() const;
+    std::vector<Point>::const_iterator end() const;
     const Point& operator[](int index) const;
     
 };

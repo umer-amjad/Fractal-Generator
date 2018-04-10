@@ -14,11 +14,8 @@ struct Colour {
     short red, green, blue;
 };
 
-//typedef XPoint Pixel;
+struct Pixel;
 
-struct Pixel {
-    short x, y;
-};
 
 class Displayer {
 public:
