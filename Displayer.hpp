@@ -9,8 +9,6 @@
 #define Displayer_hpp
 
 #include <vector>
-#include <X11/Xlib.h>
-
 //Abstract class for drawing objects:
 struct Colour {
     short red, green, blue;
@@ -25,6 +23,7 @@ struct Pixel {
 class Displayer {
 public:
     virtual void DrawLines(std::vector<Pixel>& pixels, Colour colour) = 0;
+    virtual ~Displayer(){};
 };
 
 #endif /* Displayer_hpp */

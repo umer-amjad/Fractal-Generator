@@ -79,3 +79,9 @@ void XDisplayer::DrawLines(std::vector<Pixel> &pixels, Colour colour){
     XDrawLines(dis, win, gc, xpointPixels.data(), (int)pixels.size(), CoordModeOrigin);
     XFlush(dis);
 }
+
+XDisplayer::~XDisplayer(){
+    XFreeGC(dis, gc);
+    XDestroyWindow(dis,win);
+    XCloseDisplay(dis);
+}

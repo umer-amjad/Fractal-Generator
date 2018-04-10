@@ -24,6 +24,7 @@ class XDisplayer: public Displayer {
 public:
     XDisplayer();
     virtual void DrawLines(std::vector<Pixel>& pixels, Colour colour) override;
+    ~XDisplayer();
 };
 
 #endif /* XDisplayer_hpp */
