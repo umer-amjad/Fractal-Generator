@@ -53,7 +53,7 @@ public:
         for (auto& vertex: seed){
             Polygon copy = seed;
             copy.scale(scalar, vertex);
-            copy.rotate(36);
+            //copy.rotate(36);
             transformed.push_back(copy);
         }
         return transformed;
@@ -76,8 +76,21 @@ class KochTransform: public ShapeTransformer{
     }
 };
 
+class DragonTransform: public ShapeTransformer {
+    virtual std::vector<Polygon> operator()(const Polygon& seed) override {
+        std::vector<Polygon> transformed;
+        Point midpoint = seed[1]; //start as second point
+        midpoint.scale(0.5, seed[2]); //calculate average of second and third
+        Polygon firstTriangle({midpoint, seed[0], seed[1]});
+        transformed.push_back(firstTriangle);
+        firstTriangle.rotate(90, seed[0]); //second triangle
+        transformed.push_back(firstTriangle);
+        return transformed;
+    }
+};
+
 int main(int argc, char* argv[]){
-    GraphProperties gp{500, 400, 1, 1};
+    GraphProperties gp{550, 400, 1, 1};
     XDisplayer xd;
     Displayer& displayer = xd;
     Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
@@ -113,20 +126,19 @@ int main(int argc, char* argv[]){
     }
     Polygon octagon(forOctagon);
     
-    Colour col{0, 255, 135};
-    SerpinskiTransformer testTransform(0.379);
-    FractalDrawer(pentagon, testTransform, 5, displayer, gp, col);
+    std::vector<Point> forDragon;
+    Point initial3{0, -200};
+    forDragon.push_back(initial3);
+    initial3.rotate(90, {0, 100});
+    forDragon.push_back(initial3);
+    initial3.rotate(180, {0, 100});
+    forDragon.push_back(initial3);
+    Polygon dragon(forDragon);
     
-//    for (int i = 0; i < 120; ++i){
-//        Colour c{0, short(255 - i), short(135 + i)};
-//        //XSetForeground(dis,gc,45568+i*5);//changes colour throughout
-//        std::vector<Pixel> squarePixels = square.getPixels(gp);
-//        displayer.DrawLines(squarePixels, c);
-//        Point firstPoint = square[0];
-//        square.scale(0.97, firstPoint);
-//        square.rotate(3);
-//        square.translate({-1, -1});
-//    }
+    Colour col{0, 255, 135};
+    DragonTransform testTransform;
+    FractalDrawer(dragon, testTransform, 18, displayer, gp, col, 1);
+    
     int x;
     std::cin >> x;
 }
