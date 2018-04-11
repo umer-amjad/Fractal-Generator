@@ -75,8 +75,8 @@ void XDisplayer::DrawLines(std::vector<Pixel> &pixels, Colour colour){
     xcolor.green = colour.green * 256;
     xcolor.blue = colour.blue * 256;
     //xcolor.flags = DoRed | DoGreen | DoBlue;
-    XAllocColor(dis, cmap, &xcolor);
-    XSetForeground(dis, gc, xcolor.pixel);
+    //XAllocColor(dis, cmap, &xcolor); //for fast testing
+    XSetForeground(dis, gc, 65415);
     XDrawLines(dis, win, gc, xpointPixels.data(), (int)pixels.size(), CoordModeOrigin);
     XFlush(dis);
 }

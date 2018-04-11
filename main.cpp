@@ -53,7 +53,24 @@ public:
         for (auto& vertex: seed){
             Polygon copy = seed;
             copy.scale(scalar, vertex);
+            copy.rotate(36);
             transformed.push_back(copy);
+        }
+        return transformed;
+    }
+};
+
+class KochTransform: public ShapeTransformer{
+    virtual std::vector<Polygon> operator()(const Polygon& seed) override {
+        std::vector<Polygon> transformed;
+        int i = 1;
+        int size = seed.size();
+        for (auto& vertex: seed){
+            Polygon copy = seed;
+            copy.scale(1/3.0, vertex);
+            copy.rotate(180, copy[i % size]);
+            transformed.push_back(copy);
+            ++i;
         }
         return transformed;
     }
@@ -63,7 +80,7 @@ int main(int argc, char* argv[]){
     GraphProperties gp{500, 400, 1, 1};
     XDisplayer xd;
     Displayer& displayer = xd;
-    Polygon square({{256, 256}, {-256, 256}, {-256, -256}, {256, -256}});
+    Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
     Point initial({0, 400});
     std::vector<Point> forTriangle;
     forTriangle.push_back(initial);
@@ -73,12 +90,20 @@ int main(int argc, char* argv[]){
     forTriangle.push_back(initial);
     Polygon triangle(forTriangle);
     
+    std::vector<Point> forPentagon;
+    for (int i = 0; i < 5; i++){
+        initial.rotate(72);
+        forPentagon.push_back(initial);
+    }
+    Polygon pentagon(forPentagon);
+    
     std::vector<Point> forHexagon;
     for (int i = 0; i < 6; i++){
         initial.rotate(60);
         forHexagon.push_back(initial);
     }
     Polygon hexagon(forHexagon);
+
     
     Point initial2{0, 400};
     std::vector<Point> forOctagon;
@@ -89,8 +114,8 @@ int main(int argc, char* argv[]){
     Polygon octagon(forOctagon);
     
     Colour col{0, 255, 135};
-    SerpinskiTransformer testTransform(0.29);
-    FractalDrawer(octagon, testTransform, 4, displayer, gp, col);
+    SerpinskiTransformer testTransform(0.379);
+    FractalDrawer(pentagon, testTransform, 5, displayer, gp, col);
     
 //    for (int i = 0; i < 120; ++i){
 //        Colour c{0, short(255 - i), short(135 + i)};

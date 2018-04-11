@@ -24,10 +24,12 @@ void Point::scale(double scale, Point ref){
     }
 }
 
-void Point::rotate(double deg){
+void Point::rotate(double deg, Point ref){
     short old_x = this->x;
-    x = x*cos(deg*degreesToRadians) - y*sin(deg*degreesToRadians);
-    y = old_x*sin(deg*degreesToRadians) + y*cos(deg*degreesToRadians);
+    x = (x - ref.x)*cos(deg*degreesToRadians) - (y - ref.y)*sin(deg*degreesToRadians);
+    y = (old_x - ref.x)*sin(deg*degreesToRadians) + (y - ref.y)*cos(deg*degreesToRadians);
+    x += ref.x;
+    y += ref.y;
 }
 
 Pixel Point::getPixel(GraphProperties& gp) const{

@@ -31,7 +31,7 @@ public:
     Point(double x, double y);
     void translate(Point t);
     void scale(double scale, Point ref = {0, 0});
-    void rotate(double deg);
+    void rotate(double deg, Point ref = {0, 0});
     
     Pixel getPixel(GraphProperties& gp) const;
     

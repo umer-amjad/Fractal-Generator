@@ -30,10 +30,10 @@ void Polygon::scale(double scale, Point ref){
                   });
 }
 
-void Polygon::rotate(double deg){
+void Polygon::rotate(double deg, Point ref){
     std::for_each(points.begin(), points.end(),
-                  [deg](Point& p){
-                      p.rotate(deg);
+                  [deg, &ref](Point& p){
+                      p.rotate(deg, ref);
                   });
 }
 
@@ -52,6 +52,10 @@ std::vector<Point>::const_iterator Polygon::begin() const{
 }
 std::vector<Point>::const_iterator Polygon::end() const{
     return points.end();
+}
+
+int Polygon::size() const {
+    return (int) points.size();
 }
 
 const Point& Polygon::operator[](int index) const {

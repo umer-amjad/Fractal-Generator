@@ -20,12 +20,13 @@ public:
     
     void translate(Point t);
     void scale(double scale, Point ref = {0, 0});
-    void rotate(double deg);
+    void rotate(double deg, Point ref = {0, 0});
     
     std::vector<Pixel> getPixels(GraphProperties& gp) const;
     
     std::vector<Point>::const_iterator begin() const;
     std::vector<Point>::const_iterator end() const;
+    int size() const;
     const Point& operator[](int index) const;
     
 };
