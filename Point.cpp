@@ -32,10 +32,12 @@ void Point::rotate(double deg, Point ref){
     y += ref.y;
 }
 
-Pixel Point::getPixel(GraphProperties& gp) const{
-    short pixelX = round(this->x * gp.x_scale + gp.x_zero);
-    short pixelY = round(-(gp.y_scale * this->y) + gp.y_zero);
-    return {pixelX, pixelY};
+double Point::getX() const {
+    return x;
+}
+
+double Point::getY() const {
+    return y;
 }
 
 

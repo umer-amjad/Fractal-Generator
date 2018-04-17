@@ -90,8 +90,10 @@ class DragonTransform: public ShapeTransformer {
 };
 
 int main(int argc, char* argv[]){
-    GraphProperties gp{550, 400, 1, 1};
-    XDisplayer xd;
+    // width, height, x_zero, y_zero, x_scale, y_scale
+    GraphProperties gp{1000, 900, 550, 400, 1, 1};
+    Colour col{0, 255, 135};
+    XDisplayer xd(gp, col);
     Displayer& displayer = xd;
     Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
     Point initial({0, 400});
@@ -135,9 +137,8 @@ int main(int argc, char* argv[]){
     forDragon.push_back(initial3);
     Polygon dragon(forDragon);
     
-    Colour col{0, 255, 135};
     DragonTransform testTransform;
-    FractalDrawer(dragon, testTransform, 18, displayer, gp, col, 1);
+    FractalDrawer(dragon, testTransform, 20, displayer, 1);
     
     int x;
     std::cin >> x;

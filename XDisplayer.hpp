@@ -13,17 +13,29 @@
 #include <X11/Xos.h>
 
 #include "Displayer.hpp"
+#include "Point.hpp"
 
+struct GraphProperties {
+    int width;
+    int height;
+    double x_zero;
+    double y_zero;
+    double x_scale;
+    double y_scale;
+};
 
 class XDisplayer: public Displayer {
     Display* dis;
     Window win;
     GC gc;
     int screen;
-    Colormap cmap;
+    GraphProperties gp;
+    
+    XPoint pointToPixel(const Point& p) const;
+    std::vector<XPoint> pointsToPixels(const std::vector<Point>& points) const;
 public:
-    XDisplayer();
-    virtual void DrawLines(std::vector<Pixel>& pixels, Colour colour) override;
+    XDisplayer(GraphProperties gp, Colour c);
+    virtual void drawLines(const std::vector<Point>& points) override;
     ~XDisplayer();
 };
 

@@ -7,21 +7,20 @@
 
 #include "FractalDrawer.hpp"
 
-FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform, int depth, Displayer& displayer, GraphProperties& gp, Colour& col, int depthToDraw): transform(transform), displayer(displayer), gp(gp), col(col), depthToDraw(depthToDraw){
+FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
     drawFractal(shape, depth);
 }
 
-FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, int depth, Displayer& displayer, GraphProperties& gp, Colour& col, int depthToDraw): transform(transform), displayer(displayer), gp(gp), col(col), depthToDraw(depthToDraw){
+FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
     drawFractalVector(shapes, depth);
 }
 
 void FractalDrawer::drawFractal(Polygon& shape, int depth){
-    std::vector<Pixel> pixelsToDraw = shape.getPixels(gp);
     if (depth == 0){
         return;
     }
     if (depth <= depthToDraw){
-        displayer.DrawLines(pixelsToDraw, col);
+        displayer.drawLines(shape.getPoints());
     }
     std::vector<Polygon> transformedShapes = transform(shape);
 

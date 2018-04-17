@@ -9,17 +9,18 @@
 #define Displayer_hpp
 
 #include <vector>
+
 //Abstract class for drawing objects:
 struct Colour {
     short red, green, blue;
 };
 
-struct Pixel;
+class Point;
 
 
 class Displayer {
 public:
-    virtual void DrawLines(std::vector<Pixel>& pixels, Colour colour) = 0;
+    virtual void drawLines(const std::vector<Point>& points) = 0;
     virtual ~Displayer(){};
 };
 

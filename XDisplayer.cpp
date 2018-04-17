@@ -8,9 +8,23 @@
 #include <algorithm>
 
 #include "XDisplayer.hpp"
-#include "Point.hpp"
 
-XDisplayer::XDisplayer(){
+XPoint XDisplayer::pointToPixel(const Point& p) const {
+    short pixelX = round(p.getX() * gp.x_scale + gp.x_zero);
+    short pixelY = round(-(gp.y_scale * p.getY()) + gp.y_zero);
+    return {pixelX, pixelY};
+}
+
+std::vector<XPoint> XDisplayer::pointsToPixels(const std::vector<Point>& points) const {
+    std::vector<XPoint> pixels;
+    std::for_each(points.begin(), points.end(),
+                  [&](const Point& p){
+                      pixels.push_back(pointToPixel(p));
+                  });
+    return pixels;
+}
+
+XDisplayer::XDisplayer(GraphProperties gp, Colour c) : gp(gp) {
     dis = XOpenDisplay("");
     screen = DefaultScreen(dis);
     unsigned long white = WhitePixel(dis, screen);  /* get color white */
@@ -19,8 +33,8 @@ XDisplayer::XDisplayer(){
      It will have background white
      */
     
-    int height = 800;
-    int width = 1000;
+    int height = gp.height;
+    int width = gp.width;
     
     win = XCreateSimpleWindow(dis,DefaultRootWindow(dis),0,0,
                               width, height, 5, white, white);
@@ -41,7 +55,14 @@ XDisplayer::XDisplayer(){
     gc = XCreateGC(dis, win, 0,0);
     
     /* create colour map */
-    cmap = DefaultColormap(dis, screen);
+    Colormap cmap = DefaultColormap(dis, screen);
+    XColor xcolor;
+    xcolor.red = c.red * 256;
+    xcolor.green = c.green * 256;
+    xcolor.blue = c.blue * 256;
+    xcolor.flags = DoRed | DoGreen | DoBlue;
+    XAllocColor(dis, cmap, &xcolor); //allocate colour
+    XSetForeground(dis, gc, xcolor.pixel); //set colour
 
     
     /* here is another routine to set the foreground and background
@@ -63,21 +84,10 @@ XDisplayer::XDisplayer(){
     //XSetForeground(dis,gc,45568);//green
 }
 
-void XDisplayer::DrawLines(std::vector<Pixel> &pixels, Colour colour){
-    std::vector<XPoint> xpointPixels;
-    std::for_each(pixels.begin(), pixels.end(),
-                  [&xpointPixels](const Pixel& p){
-                      XPoint xp{p.x, p.y};
-                      xpointPixels.push_back(xp);
-                  });
-    XColor xcolor;
-    xcolor.red = colour.red * 256;
-    xcolor.green = colour.green * 256;
-    xcolor.blue = colour.blue * 256;
-    //xcolor.flags = DoRed | DoGreen | DoBlue;
-    //XAllocColor(dis, cmap, &xcolor); //for fast testing
-    XSetForeground(dis, gc, 65415);
-    XDrawLines(dis, win, gc, xpointPixels.data(), (int)pixels.size(), CoordModeOrigin);
+void XDisplayer::drawLines(const std::vector<Point>& points){
+    std::vector<XPoint> xpointPixels = pointsToPixels(points);
+
+    XDrawLines(dis, win, gc, xpointPixels.data(), (int)xpointPixels.size(), CoordModeOrigin);
     XFlush(dis);
 }
 
