@@ -16,7 +16,7 @@ class ShapeTransformer {
 public:
     virtual std::vector<Polygon> operator()(const Polygon& seed) = 0;
     
-    ~ShapeTransformer(){};
+    ~ShapeTransformer() {};
 };
 
 #endif /* ShapeTransformer_hpp */

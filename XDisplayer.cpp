@@ -18,7 +18,7 @@ XPoint XDisplayer::pointToPixel(const Point& p) const {
 std::vector<XPoint> XDisplayer::pointsToPixels(const std::vector<Point>& points) const {
     std::vector<XPoint> pixels;
     std::for_each(points.begin(), points.end(),
-                  [&](const Point& p){
+                  [&] (const Point& p) {
                       pixels.push_back(pointToPixel(p));
                   });
     return pixels;
@@ -84,14 +84,14 @@ XDisplayer::XDisplayer(GraphProperties gp, Colour c) : gp(gp) {
     //XSetForeground(dis,gc,45568);//green
 }
 
-void XDisplayer::drawLines(const std::vector<Point>& points){
+void XDisplayer::drawLines(const std::vector<Point>& points) {
     std::vector<XPoint> xpointPixels = pointsToPixels(points);
 
     XDrawLines(dis, win, gc, xpointPixels.data(), (int)xpointPixels.size(), CoordModeOrigin);
     XFlush(dis);
 }
 
-XDisplayer::~XDisplayer(){
+XDisplayer::~XDisplayer() {
     XFreeGC(dis, gc);
     XDestroyWindow(dis,win);
     XCloseDisplay(dis);

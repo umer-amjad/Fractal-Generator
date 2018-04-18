@@ -25,7 +25,7 @@ class SquareTest1: public ShapeTransformer{
     }
 };
 
-class SquareTest2: public ShapeTransformer{
+class SquareTest2: public ShapeTransformer {
     virtual std::vector<Polygon> operator()(const Polygon& seed) override {
         std::vector<Polygon> transformed;
         Polygon copy = seed;
@@ -42,15 +42,27 @@ class SquareTest2: public ShapeTransformer{
     }
 };
 
-class SerpinskiTransformer: public ShapeTransformer{
-    double scalar = 0.5; //default
+double serpinskiScaleFactor(int dim) {
+    int quarter_dim = dim / 4;
+    double accumulator = 0;
+    for (int k = 1; k <= quarter_dim; ++k) {
+        accumulator += cos((2.0 * M_PI * k) / dim);
+    }
+    return 1.0/(2.0 * (1.0 + accumulator));
+}
+
+class SerpinskiTransformer: public ShapeTransformer {
+    double scalar = -1; //default
 public:
-    SerpinskiTransformer(){};
-    SerpinskiTransformer(double scalar): scalar(scalar){};
+    SerpinskiTransformer() {};
+    SerpinskiTransformer(double scalar): scalar(scalar) {};
 
     virtual std::vector<Polygon> operator()(const Polygon& seed) override {
+        if (scalar == -1) {
+            scalar = serpinskiScaleFactor(seed.size());
+        }
         std::vector<Polygon> transformed;
-        for (auto& vertex: seed){
+        for (auto& vertex: seed) {
             Polygon copy = seed;
             copy.scale(scalar, vertex);
             //copy.rotate(36);
@@ -65,7 +77,7 @@ class KochTransform: public ShapeTransformer{
         std::vector<Polygon> transformed;
         int i = 1;
         int size = seed.size();
-        for (auto& vertex: seed){
+        for (auto& vertex: seed) {
             Polygon copy = seed;
             copy.scale(1/3.0, vertex);
             copy.rotate(180, copy[i % size]);
@@ -89,7 +101,7 @@ class DragonTransform: public ShapeTransformer {
     }
 };
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
     // width, height, x_zero, y_zero, x_scale, y_scale
     GraphProperties gp{1000, 900, 550, 400, 1, 1};
     Colour col{0, 255, 135};
@@ -106,14 +118,14 @@ int main(int argc, char* argv[]){
     Polygon triangle(forTriangle);
     
     std::vector<Point> forPentagon;
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
         initial.rotate(72);
         forPentagon.push_back(initial);
     }
     Polygon pentagon(forPentagon);
     
     std::vector<Point> forHexagon;
-    for (int i = 0; i < 6; i++){
+    for (int i = 0; i < 6; i++) {
         initial.rotate(60);
         forHexagon.push_back(initial);
     }
@@ -122,7 +134,7 @@ int main(int argc, char* argv[]){
     
     Point initial2{0, 400};
     std::vector<Point> forOctagon;
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++) {
         initial2.rotate(45);
         forOctagon.push_back(initial2);
     }
@@ -137,8 +149,8 @@ int main(int argc, char* argv[]){
     forDragon.push_back(initial3);
     Polygon dragon(forDragon);
     
-    DragonTransform testTransform;
-    FractalDrawer(dragon, testTransform, 20, displayer, 1);
+    SerpinskiTransformer testTransform;
+    FractalDrawer(octagon, testTransform, 6, displayer, 1);
     
     int x;
     std::cin >> x;

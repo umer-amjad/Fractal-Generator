@@ -15,20 +15,20 @@ FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& tran
     drawFractalVector(shapes, depth);
 }
 
-void FractalDrawer::drawFractal(Polygon& shape, int depth){
-    if (depth == 0){
+void FractalDrawer::drawFractal(Polygon& shape, int depth) {
+    if (depth == 0) {
         return;
     }
-    if (depth <= depthToDraw){
+    if (depth <= depthToDraw) {
         displayer.drawLines(shape.getPoints());
     }
     std::vector<Polygon> transformedShapes = transform(shape);
 
     drawFractalVector(transformedShapes, --depth);
 }
-void FractalDrawer::drawFractalVector(std::vector<Polygon> shapes, int depth){
+void FractalDrawer::drawFractalVector(std::vector<Polygon> shapes, int depth) {
     std::for_each(shapes.begin(), shapes.end(),
-                  [&](Polygon& shape){
+                  [&] (Polygon& shape) {
                       drawFractal(shape, depth);
                   });
 }

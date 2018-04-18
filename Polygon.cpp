@@ -11,27 +11,27 @@
 
 Polygon::Polygon(std::vector<Point> points): points(points) {}
 
-int Polygon::size(){
+int Polygon::size() {
     return (int)points.size();
 }
 
-void Polygon::translate(Point t){
+void Polygon::translate(Point t) {
     std::for_each(points.begin(), points.end(),
-                  [&t](Point& p){
+                  [&t] (Point& p) {
                       p.translate(t);
                   });
 }
 
-void Polygon::scale(double scale, Point ref){
+void Polygon::scale(double scale, Point ref) {
     std::for_each(points.begin(), points.end(),
-                  [scale, &ref](Point& p){
+                  [scale, &ref] (Point& p) {
                       p.scale(scale, ref);
                   });
 }
 
-void Polygon::rotate(double deg, Point ref){
+void Polygon::rotate(double deg, Point ref) {
     std::for_each(points.begin(), points.end(),
-                  [deg, &ref](Point& p){
+                  [deg, &ref] (Point& p) {
                       p.rotate(deg, ref);
                   });
 }

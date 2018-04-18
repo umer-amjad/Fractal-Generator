@@ -9,22 +9,22 @@
 
 Point::Point(double x, double y): x(x), y(y) {}
 
-void Point::translate(Point t){
+void Point::translate(Point t) {
     x += t.x;
     y += t.y;
 }
 
-void Point::scale(double scale, Point ref){
+void Point::scale(double scale, Point ref) {
     Point origin = {0, 0};
     x *= scale;
     y *= scale;
-    if (ref != origin){
+    if (ref != origin) {
         ref.scale(1-scale);
         this->translate(ref);
     }
 }
 
-void Point::rotate(double deg, Point ref){
+void Point::rotate(double deg, Point ref) {
     short old_x = this->x;
     x = (x - ref.x)*cos(deg*degreesToRadians) - (y - ref.y)*sin(deg*degreesToRadians);
     y = (old_x - ref.x)*sin(deg*degreesToRadians) + (y - ref.y)*cos(deg*degreesToRadians);

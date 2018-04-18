@@ -21,7 +21,7 @@ class Point;
 class Displayer {
 public:
     virtual void drawLines(const std::vector<Point>& points) = 0;
-    virtual ~Displayer(){};
+    virtual ~Displayer() {};
 };
 
 #endif /* Displayer_hpp */
