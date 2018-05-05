@@ -7,6 +7,8 @@
 
 #include "FractalDrawer.hpp"
 
+#include <algorithm>
+
 FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
     drawFractal(shape, depth);
 }

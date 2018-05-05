@@ -11,6 +11,8 @@
 #include "ShapeTransformer.hpp"
 #include "Displayer.hpp"
 
+#include <climits>
+
 class FractalDrawer {
     ShapeTransformer& transform;
     Displayer& displayer;

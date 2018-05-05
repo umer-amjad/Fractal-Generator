@@ -6,6 +6,7 @@
 //
 
 #include <algorithm>
+#include <iostream> //debug
 
 #include "XDisplayer.hpp"
 
@@ -25,20 +26,23 @@ std::vector<XPoint> XDisplayer::pointsToPixels(const std::vector<Point>& points)
 }
 
 XDisplayer::XDisplayer(GraphProperties gp, Colour c) : gp(gp) {
-    dis = XOpenDisplay("");
+    std::cout << "Point 1" << std::endl;
+    dis = XOpenDisplay((char *)0);
+    std::cout << "Point 2" << std::endl;
     screen = DefaultScreen(dis);
+    std::cout << "Point 2.5" << std::endl;
     unsigned long white = WhitePixel(dis, screen);  /* get color white */
-    
+    std::cout << "Point 2.6" << std::endl;
     /* once the display is initialized, create the window.
      It will have background white
      */
     
     int height = gp.height;
     int width = gp.width;
-    
+    std::cout << "Point 3" << std::endl;
     win = XCreateSimpleWindow(dis,DefaultRootWindow(dis),0,0,
                               width, height, 5, white, white);
-    
+    std::cout << "Point 4" << std::endl;
     
     /* here is where some properties of the window can be set.
      The third and fourth items indicate the name which appears
@@ -74,7 +78,7 @@ XDisplayer::XDisplayer(GraphProperties gp, Colour c) : gp(gp) {
         if (e.type == MapNotify)
             break;
     }
-    
+    std::cout << "Point 5" << std::endl;
     //draw x axis:
     //XDrawLine(dis, win, gc, 0, y_zero, width-1, y_zero);
     
