@@ -16,12 +16,11 @@
 class FractalDrawer {
     ShapeTransformer& transform;
     Displayer& displayer;
-    int depthToDraw; //optional, default always draws, 1 means last iteration, 2 means last two iterations
-    
+    int depthToDraw; //optional, default (1) draws last iteration, 2 means last two iterations, etc    
 public:
     //two constructors, one for single shape and one for vector of shapes
-    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = INT_MAX);
-    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = INT_MAX);
+    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = 1);
+    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = 1);
     
     void drawFractal(Polygon& shape, int depth);
     void drawFractalVector(std::vector<Polygon>& shapes, int depth);

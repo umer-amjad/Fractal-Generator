@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
     Polygon dragon(forDragon);
     
     DragonTransform testTransform;
-    FractalDrawer(dragon, testTransform, displayer, 18, 1);
+    FractalDrawer(dragon, testTransform, displayer, 15);
     
     //stop program from exiting:
     int x;
