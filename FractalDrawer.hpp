@@ -20,8 +20,8 @@ class FractalDrawer {
     
 public:
     //two constructors, one for single shape and one for vector of shapes
-    FractalDrawer(Polygon& shape, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw = INT_MAX);
-    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw = INT_MAX);
+    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = INT_MAX);
+    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = INT_MAX);
     
     void drawFractal(Polygon& shape, int depth);
     void drawFractalVector(std::vector<Polygon>& shapes, int depth);

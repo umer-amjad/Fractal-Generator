@@ -9,11 +9,11 @@
 
 #include <algorithm>
 
-FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
+FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
     drawFractal(shape, depth);
 }
 
-FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
+FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw): transform(transform), displayer(displayer), depthToDraw(depthToDraw) {
     drawFractalVector(shapes, depth);
 }
 
