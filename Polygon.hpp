@@ -16,7 +16,6 @@ class Polygon {
     
 public:
     Polygon(std::vector<Point> point);
-    int size();
     
     void translate(Point t);
     void scale(double scale, Point ref = {0, 0});

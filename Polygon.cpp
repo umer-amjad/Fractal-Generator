@@ -11,10 +11,6 @@
 
 Polygon::Polygon(std::vector<Point> points): points(points) {}
 
-int Polygon::size() {
-    return (int)points.size();
-}
-
 void Polygon::translate(Point t) {
     std::for_each(points.begin(), points.end(),
                   [&t] (Point& p) {

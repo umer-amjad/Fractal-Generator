@@ -149,8 +149,8 @@ int main(int argc, char* argv[]) {
     forDragon.push_back(initial3);
     Polygon dragon(forDragon);
     
-    SerpinskiTransformer testTransform;
-    FractalDrawer(octagon, testTransform, 2, displayer, 1);
+    DragonTransform testTransform;
+    FractalDrawer(dragon, testTransform, 10, displayer, 1);
     
     //stop program from exiting:
     int x;
