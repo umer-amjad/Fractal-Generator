@@ -4,8 +4,8 @@
 #include <vector>
 #include "Point.hpp"
 
-
 class Lines {
+protected:
     std::vector<Point> points;
     
 public:

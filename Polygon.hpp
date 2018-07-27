@@ -9,25 +9,13 @@
 #define Polygon_hpp
 
 #include <vector>
-#include "Point.hpp"
+#include "Lines.hpp"
 
-class Polygon {
-    std::vector<Point> points;
-    
+class Polygon : public Lines {    
 public:
     Polygon(std::vector<Point> point);
     
-    void translate(Point t);
-    void scale(double scale, Point ref = {0, 0});
-    void rotate(double deg, Point ref = {0, 0});
-    
-    const std::vector<Point> getPoints() const;
-    
-    std::vector<Point>::const_iterator begin() const;
-    std::vector<Point>::const_iterator end() const;
-    int size() const;
-    const Point& operator[](int index) const;
-    
+    const std::vector<Point> getPoints() const override;
 };
 
 #endif /* Polygon_hpp */
