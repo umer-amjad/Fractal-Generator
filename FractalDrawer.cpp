@@ -28,7 +28,7 @@ void FractalDrawer::drawFractal(Polygon& shape, int depth) {
 
     drawFractalVector(transformedShapes, --depth);
 }
-void FractalDrawer::drawFractalVector(std::vector<Polygon> shapes, int depth) {
+void FractalDrawer::drawFractalVector(std::vector<Polygon>& shapes, int depth) {
     std::for_each(shapes.begin(), shapes.end(),
                   [&] (Polygon& shape) {
                       drawFractal(shape, depth);

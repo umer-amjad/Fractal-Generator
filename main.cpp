@@ -103,12 +103,12 @@ class DragonTransform: public ShapeTransformer {
 
 int main(int argc, char* argv[]) {
     // width, height, x_zero, y_zero, x_scale, y_scale
-    GraphProperties gp{1000, 900, 550, 400, 1, 1};
+    GraphProperties gp{1000, 750, 500, 300, 1, 1};
     Colour col{0, 255, 135};
     XDisplayer xd(gp, col);
     Displayer& displayer = xd;
     Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
-    Point initial({0, 400});
+    Point initial({0, 100});
     std::vector<Point> forTriangle;
     forTriangle.push_back(initial);
     initial.rotate(120);
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
     Polygon hexagon(forHexagon);
 
     
-    Point initial2{0, 400};
+    Point initial2{0, 300};
     std::vector<Point> forOctagon;
     for (int i = 0; i < 8; i++) {
         initial2.rotate(45);
@@ -150,8 +150,9 @@ int main(int argc, char* argv[]) {
     Polygon dragon(forDragon);
     
     SerpinskiTransformer testTransform;
-    FractalDrawer(octagon, testTransform, 6, displayer, 1);
+    FractalDrawer(octagon, testTransform, 2, displayer, 1);
     
+    //stop program from exiting:
     int x;
     std::cin >> x;
 }

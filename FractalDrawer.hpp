@@ -24,6 +24,6 @@ public:
     FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, int depth, Displayer& displayer, int depthToDraw = INT_MAX);
     
     void drawFractal(Polygon& shape, int depth);
-    void drawFractalVector(std::vector<Polygon> shapes, int depth);
+    void drawFractalVector(std::vector<Polygon>& shapes, int depth);
 };
 #endif /* FractalDrawer_hpp */
