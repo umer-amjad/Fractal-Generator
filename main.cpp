@@ -104,7 +104,7 @@ class DragonTransform: public ShapeTransformer {
 int main(int argc, char* argv[]) {
     // width, height, x_zero, y_zero, x_scale, y_scale
     GraphProperties gp{1200, 750, 600, 300, 1, 1};
-    Colour col{0, 255, 135};
+    Colour col{255, 0, 100};
     XDisplayer xd(gp, col);
     Displayer& displayer = xd;
     Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
     Polygon dragon(forDragon);
     
     DragonTransform testTransform;
-    FractalDrawer(dragon, testTransform, displayer, 15);
+    FractalDrawer(dragon, testTransform, displayer, 25);
     
     //stop program from exiting:
     int x;

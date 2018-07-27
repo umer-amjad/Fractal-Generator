@@ -17,12 +17,29 @@ FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& tran
     drawFractalVector(shapes, depth);
 }
 
+double distance(const Point& a, const Point& b) {
+    return sqrt(pow(a.getX() - b.getX(), 2) +
+                pow(a.getY() - b.getY(), 2));
+}
+
 void FractalDrawer::drawFractal(Polygon& shape, int depth) {
     if (depth == 0) {
         return;
     }
+    double maxSoFar = 0;
+    const std::vector<Point>& points = shape.getPoints();
+    for (int i = 0; i < points.size() - 1; ++i){
+        double dist = distance(points[i], points[i+1]);
+        if (dist > maxSoFar){
+            maxSoFar = dist;
+        }
+    }
+    if (maxSoFar < minLength){
+        displayer.drawLines(points);
+        return;
+    }
     if (depth <= depthToDraw) {
-        displayer.drawLines(shape.getPoints());
+        displayer.drawLines(points);
     }
     std::vector<Polygon> transformedShapes = transform(shape);
 

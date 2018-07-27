@@ -76,7 +76,6 @@ XDisplayer::XDisplayer(GraphProperties gp, Colour c) : gp(gp) {
 
 void XDisplayer::drawLines(const std::vector<Point>& points) {
     std::vector<XPoint> xpointPixels = pointsToPixels(points);
-
     XDrawLines(dis, win, gc, xpointPixels.data(), (int)xpointPixels.size(), CoordModeOrigin);
     XFlush(dis);
 }

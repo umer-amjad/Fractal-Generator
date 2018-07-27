@@ -19,6 +19,7 @@ class Point;
 
 
 class Displayer {
+protected:
 public:
     virtual void drawLines(const std::vector<Point>& points) = 0;
     virtual ~Displayer() {};

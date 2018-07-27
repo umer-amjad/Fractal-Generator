@@ -16,6 +16,9 @@
 class FractalDrawer {
     ShapeTransformer& transform;
     Displayer& displayer;
+    // if length of longest line during drawLines is < minLength, drawing does not occur
+    // (can turn off stopAtMinLength in FractalDrawer constructor
+    double minLength = 5;
     int depthToDraw; //optional, default (1) draws last iteration, 2 means last two iterations, etc    
 public:
     //two constructors, one for single shape and one for vector of shapes
