@@ -15,15 +15,20 @@
 
 class FractalDrawer {
     ShapeTransformer& transform;
-    Displayer& displayer;
+    Displayer& displayer;    
     // if length of longest line during drawLines is < minLength, drawing does not occur
-    // (can turn off stopAtMinLength in FractalDrawer constructor
-    double minLength = 5;
-    int depthToDraw; //optional, default (1) draws last iteration, 2 means last two iterations, etc    
+    // (turned off when onlyDrawLastValid is false)
+    double minLength;
+    bool onlyDrawLastValid;
+    int depthToDraw; //optional, set if onlyDrawLastValid is false
+
+    
+    //returns true if longest line length is >= minLength
+    bool validLength(const std::vector<Point>& points);
 public:
     //two constructors, one for single shape and one for vector of shapes
-    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = 1);
-    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, int depth, int depthToDraw = 1);
+    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, double minLength = 5, bool lastValid = true, int depth = 1, int depthToDraw = 1);
+    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, double minLength = 5, bool lastValid = true, int depth = 1, int depthToDraw = 1);
     
     void drawFractal(Polygon& shape, int depth);
     void drawFractalVector(std::vector<Polygon>& shapes, int depth);

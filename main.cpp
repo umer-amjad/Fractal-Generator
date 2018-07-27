@@ -104,11 +104,11 @@ class DragonTransform: public ShapeTransformer {
 int main(int argc, char* argv[]) {
     // width, height, x_zero, y_zero, x_scale, y_scale
     GraphProperties gp{1200, 750, 600, 300, 1, 1};
-    Colour col{255, 0, 100};
+    Colour col{0, 255, 200};
     XDisplayer xd(gp, col);
     Displayer& displayer = xd;
     Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
-    Point initial({0, 100});
+    Point initial({0, 300});
     std::vector<Point> forTriangle;
     forTriangle.push_back(initial);
     initial.rotate(120);
@@ -149,10 +149,10 @@ int main(int argc, char* argv[]) {
     forDragon.push_back(initial3);
     Polygon dragon(forDragon);
     
-    DragonTransform testTransform;
-    FractalDrawer(dragon, testTransform, displayer, 25);
+    SerpinskiTransformer testTransform;
+    FractalDrawer(pentagon, testTransform, displayer, 2);
     
     //stop program from exiting:
-    int x;
-    std::cin >> x;
+    std::cout << "Press Enter to exit and close windows" << std::endl;
+    std::cin.get();
 }
