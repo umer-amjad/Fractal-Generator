@@ -20,7 +20,6 @@ class SquareTest1: public ShapeTransformer{
         Point firstPoint = copy[0];
         copy.scale(0.97, firstPoint);
         copy.rotate(3);
-        copy.translate({-1, -1});
         return {copy};
     }
 };
@@ -51,11 +50,11 @@ double serpinskiScaleFactor(int dim) {
     return 1.0/(2.0 * (1.0 + accumulator));
 }
 
-class SerpinskiTransformer: public ShapeTransformer {
+class SerpinskiTransform: public ShapeTransformer {
     double scalar = -1; //default
 public:
-    SerpinskiTransformer() {};
-    SerpinskiTransformer(double scalar): scalar(scalar) {};
+    SerpinskiTransform() {};
+    SerpinskiTransform(double scalar): scalar(scalar) {};
 
     virtual std::vector<Polygon> operator()(const Polygon& seed) override {
         if (scalar == -1) {
@@ -107,50 +106,19 @@ int main(int argc, char* argv[]) {
     Colour col{0, 255, 200};
     XDisplayer xd(gp, col);
     Displayer& displayer = xd;
-    Polygon square({{100, 100}, {-100, 100}, {-100, -100}, {100, -100}});
-    Point initial({0, 300});
-    std::vector<Point> forTriangle;
-    forTriangle.push_back(initial);
-    initial.rotate(120);
-    forTriangle.push_back(initial);
-    initial.rotate(120);
-    forTriangle.push_back(initial);
-    Polygon triangle(forTriangle);
-    
-    std::vector<Point> forPentagon;
-    for (int i = 0; i < 5; i++) {
-        initial.rotate(72);
-        forPentagon.push_back(initial);
-    }
-    Polygon pentagon(forPentagon);
-    
-    std::vector<Point> forHexagon;
-    for (int i = 0; i < 6; i++) {
-        initial.rotate(60);
-        forHexagon.push_back(initial);
-    }
-    Polygon hexagon(forHexagon);
-
-    
-    Point initial2{0, 300};
-    std::vector<Point> forOctagon;
-    for (int i = 0; i < 8; i++) {
-        initial2.rotate(45);
-        forOctagon.push_back(initial2);
-    }
-    Polygon octagon(forOctagon);
     
     std::vector<Point> forDragon;
-    Point initial3{0, -200};
-    forDragon.push_back(initial3);
-    initial3.rotate(90, {0, 100});
-    forDragon.push_back(initial3);
-    initial3.rotate(180, {0, 100});
-    forDragon.push_back(initial3);
+    Point top{0, -200};
+    forDragon.push_back(top);
+    top.rotate(90, {0, 100});
+    forDragon.push_back(top);
+    top.rotate(180, {0, 100});
+    forDragon.push_back(top);
     Polygon dragon(forDragon);
     
-    SerpinskiTransformer testTransform;
-    FractalDrawer(pentagon, testTransform, displayer, 2);
+    SerpinskiTransform testTransform;
+    Polygon testgon = Polygon::ngon(7, 300);
+    FractalDrawer(testgon, testTransform, displayer, 2);
     
     //stop program from exiting:
     std::cout << "Press Enter to exit and close windows" << std::endl;
