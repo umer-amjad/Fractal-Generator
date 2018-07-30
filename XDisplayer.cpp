@@ -80,6 +80,24 @@ void XDisplayer::drawLines(const std::vector<Point>& points) {
     XFlush(dis);
 }
 
+void XDisplayer::clear() {
+    XClearWindow(dis, win);
+    XFlush(dis);
+}
+
+void XDisplayer::setScales(double x, double y) {
+    gp.x_scale = x;
+    gp.y_scale = y;
+}
+
+double XDisplayer::getXScale() const {
+    return gp.x_scale;
+}
+
+double XDisplayer::getYScale() const {
+    return gp.y_scale;
+}
+
 XDisplayer::~XDisplayer() {
     XFreeGC(dis, gc);
     XDestroyWindow(dis,win);

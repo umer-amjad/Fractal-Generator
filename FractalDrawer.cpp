@@ -27,9 +27,9 @@ FractalDrawer::FractalDrawer(std::vector<Polygon> shapes,
     drawFractalVector(shapes, depth);
 }
 
-double distance(const Point& a, const Point& b) {
-    return sqrt(pow(a.getX() - b.getX(), 2) +
-                pow(a.getY() - b.getY(), 2));
+double FractalDrawer::distance(const Point& a, const Point& b) {
+    return sqrt(pow(displayer.getXScale()*(a.getX() - b.getX()), 2) +
+                pow(displayer.getYScale()*(a.getY() - b.getY()), 2));
 }
 
 bool FractalDrawer::validLength(const std::vector<Point>& points) {

@@ -116,9 +116,13 @@ int main(int argc, char* argv[]) {
     forDragon.push_back(top);
     Polygon dragon(forDragon);
     
-    SerpinskiTransform testTransform;
+    DragonTransform testTransform;
     Polygon testgon = Polygon::ngon(7, 300);
-    FractalDrawer(testgon, testTransform, displayer, 2);
+    for (double scale = 1; scale < 3; scale += 0.1){
+        displayer.clear();
+        displayer.setScales(scale, scale);
+        FractalDrawer(dragon, testTransform, displayer, 7);
+    }
     
     //stop program from exiting:
     std::cout << "Press Enter to exit and close windows" << std::endl;

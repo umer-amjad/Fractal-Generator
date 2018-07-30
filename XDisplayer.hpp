@@ -36,6 +36,10 @@ class XDisplayer: public Displayer {
 public:
     XDisplayer(GraphProperties gp, Colour c);
     virtual void drawLines(const std::vector<Point>& points) override;
+    virtual void clear() override;
+    virtual void setScales(double x, double y) override;
+    virtual double getXScale() const override;
+    virtual double getYScale() const override;
     ~XDisplayer();
 };
 

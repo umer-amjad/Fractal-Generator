@@ -25,6 +25,8 @@ class FractalDrawer {
     
     //returns true if longest line length is >= minLength
     bool validLength(const std::vector<Point>& points);
+    
+    double distance(const Point& a, const Point& b);
 public:
     //two constructors, one for single shape and one for vector of shapes
     FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, double minLength = 5, bool lastValid = true, int depth = 1, int depthToDraw = 1);

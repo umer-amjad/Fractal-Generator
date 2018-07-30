@@ -22,6 +22,10 @@ class Displayer {
 protected:
 public:
     virtual void drawLines(const std::vector<Point>& points) = 0;
+    virtual void clear() = 0;
+    virtual void setScales(double x, double y) = 0;
+    virtual double getXScale() const = 0;
+    virtual double getYScale() const = 0;
     virtual ~Displayer() {};
 };
 
