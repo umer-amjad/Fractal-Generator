@@ -118,11 +118,12 @@ int main(int argc, char* argv[]) {
     
     DragonTransform testTransform;
     Polygon testgon = Polygon::ngon(7, 300);
-    for (double scale = 1; scale < 3; scale += 0.1){
-        displayer.clear();
-        displayer.setScales(scale, scale);
-        FractalDrawer(dragon, testTransform, displayer, 7);
-    }
+    FractalDrawer(dragon, testTransform, displayer, 7);
+    //for (double scale = 1; scale < 3; scale += 0.1){
+    //    displayer.clear();
+    //    displayer.setScales(scale, scale);
+    //    FractalDrawer(dragon, testTransform, displayer, 7);
+    //}
     
     //stop program from exiting:
     std::cout << "Press Enter to exit and close windows" << std::endl;
