@@ -105,7 +105,6 @@ int main(int argc, char* argv[]) {
     GraphProperties gp{1200, 750, 600, 300, 1, 1};
     Colour col{0, 255, 200};
     XDisplayer xd(gp, col);
-    Displayer& displayer = xd;
     
     std::vector<Point> forDragon;
     Point top{0, -200};
@@ -116,10 +115,13 @@ int main(int argc, char* argv[]) {
     forDragon.push_back(top);
     Polygon dragon(forDragon);
     
-    DragonTransform testTransform;
-    Polygon testgon = Polygon::ngon(7, 300);
-    // shape, transform, displayer, minLength, lastValid, depth, depthoDraw
-    FractalDrawer(dragon, testTransform, displayer, 1, true, 15);
+    DragonTransform transform1;
+    SerpinskiTransform transform2;
+    Polygon testgon = Polygon::ngon(6, 300);
+    // shape, transform2, displayer, minLength, lastValid, depth, depthoDraw
+    FractalDrawer(dragon, transform1, xd, 1, true, 15);
+    XDisplayer xd2(gp, col);
+    FractalDrawer(testgon, transform2, xd2, 3);
     
     //stop program from exiting:
     std::cout << "Press Enter to exit and close windows" << std::endl;
