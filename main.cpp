@@ -103,7 +103,7 @@ class DragonTransform: public ShapeTransformer {
 int main(int argc, char* argv[]) {
     // width, height, x_zero, y_zero, x_scale, y_scale
     GraphProperties gp{1200, 750, 600, 300, 1, 1};
-    Colour col{0, 255, 200};
+    Colour col{0, 255, 200}; // my favourite colour
     XDisplayer xd(gp, col);
     
     std::vector<Point> forDragon;
@@ -117,11 +117,24 @@ int main(int argc, char* argv[]) {
     
     DragonTransform transform1;
     SerpinskiTransform transform2;
-    Polygon testgon = Polygon::ngon(6, 300);
-    // shape, transform2, displayer, minLength, lastValid, depth, depthoDraw
+    // shape(polygon), transform, displayer, minLength, lastValid, depth, depthoDraw
     FractalDrawer(dragon, transform1, xd, 1, true, 15);
-    XDisplayer xd2(gp, col);
-    FractalDrawer(testgon, transform2, xd2, 3);
+    Polygon testgon = Polygon::ngon(3, 300);
+    for (int i = 1; i < 8; ++i) {
+        XDisplayer xd2(gp, col);
+        FractalDrawer(testgon, transform2, xd2, 1, false, i);
+        std::cout << "Press Enter to continue" << std::endl;
+        std::cin.get();
+    }
+
+    SquareTest1 transform3;
+    Polygon square = Polygon::ngon(4, 300);
+    XDisplayer xd3(gp, col);
+    for (int i = 60; i >+ 0; i-= 10) {
+        FractalDrawer(square, transform3, xd3, 0, false, 60, i);
+        std::cout << "Press Enter to continue" << std::endl;
+        std::cin.get();
+    }
     
     //stop program from exiting:
     std::cout << "Press Enter to exit and close windows" << std::endl;
