@@ -130,8 +130,8 @@ int main(int argc, char* argv[]) {
     SquareTest1 transform3;
     Polygon square = Polygon::ngon(4, 300);
     XDisplayer xd3(gp, col);
-    for (int i = 60; i >+ 0; i-= 10) {
-        FractalDrawer(square, transform3, xd3, 0, false, 60, i);
+    for (int i = 100; i >= 0; i-= 10) {
+        FractalDrawer(square, transform3, xd3, 0, false, 100, i);
         std::cout << "Press Enter to continue" << std::endl;
         std::cin.get();
     }
