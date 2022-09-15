@@ -21,6 +21,7 @@ class FractalDrawer {
     double minLength;
     bool onlyDrawLastValid;
     int depthToDraw; //optional, set if onlyDrawLastValid is false
+    int initialDepth;
 
     
     //returns true if longest line length is >= minLength
@@ -29,8 +30,8 @@ class FractalDrawer {
     double distance(const Point& a, const Point& b);
 public:
     //two constructors, one for single shape and one for vector of shapes
-    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, double minLength = 5, bool lastValid = true, int depth = 1, int depthToDraw = 1);
-    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, double minLength = 5, bool lastValid = true, int depth = 1, int depthToDraw = 1);
+    FractalDrawer(Polygon& shape, ShapeTransformer& transform, Displayer& displayer, double minLength = 1, bool lastValid = true, int depth = 1, int depthToDraw = -1);
+    FractalDrawer(std::vector<Polygon> shapes, ShapeTransformer& transform, Displayer& displayer, double minLength = 1, bool lastValid = true, int depth = 1, int depthToDraw = -1);
     
     void drawFractal(Polygon& shape, int depth);
     void drawFractalVector(std::vector<Polygon>& shapes, int depth);

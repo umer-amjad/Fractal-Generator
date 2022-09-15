@@ -11,9 +11,10 @@
 
 FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform, 
     Displayer& displayer, double minLength, bool lastValid, int depth, int depthToDraw): 
-    transform(transform), displayer(displayer), minLength(minLength), onlyDrawLastValid(lastValid), depthToDraw(depthToDraw) {
-    if (onlyDrawLastValid){
+    transform(transform), displayer(displayer), minLength(minLength), onlyDrawLastValid(lastValid), depthToDraw(depthToDraw), initialDepth(depth) {
+    if (onlyDrawLastValid && minLength > 1){
         depth = INT_MAX;
+        depthToDraw = -1;
     }
     drawFractal(shape, depth);
 }
@@ -21,8 +22,9 @@ FractalDrawer::FractalDrawer(Polygon& shape, ShapeTransformer& transform,
 FractalDrawer::FractalDrawer(std::vector<Polygon> shapes, 
     ShapeTransformer& transform, Displayer& displayer, double minLength, bool lastValid, int depth, int depthToDraw): 
     transform(transform), displayer(displayer), minLength(minLength), onlyDrawLastValid(lastValid), depthToDraw(depthToDraw) {
-    if (onlyDrawLastValid){
+    if (onlyDrawLastValid && minLength > 1){
         depth = INT_MAX;
+        depthToDraw = -1;
     }
     drawFractalVector(shapes, depth);
 }
@@ -45,6 +47,9 @@ bool FractalDrawer::validLength(const std::vector<Point>& points) {
 
 void FractalDrawer::drawFractal(Polygon& shape, int depth) {
     if (depth == 0) {
+        if (onlyDrawLastValid) {
+            displayer.drawLines(shape.getPoints());
+        }
         return;
     }
     const std::vector<Point>& points = shape.getPoints();
@@ -53,7 +58,7 @@ void FractalDrawer::drawFractal(Polygon& shape, int depth) {
         displayer.drawLines(points);
         return;
     }
-    if (depth <= depthToDraw) {
+    if (initialDepth - depth >= depthToDraw && depthToDraw != -1) {
         displayer.drawLines(points);
     }
     std::vector<Polygon> transformedShapes = transform(shape);
